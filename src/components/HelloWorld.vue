@@ -2,6 +2,10 @@
   <section class="alert alert-primary">
     <h1>{{ data.title }}</h1>
     <p>{{ data.message }}</p>
+    <div class="form-group">
+      <input type="number" class="form-control" v-model="data.id" />
+      <button class="btn btn-primary m-2" @click="doClick">Click</button>
+    </div>
     <table class="table table-light table-striped">
       <tbody class="text-left">
         <tr>
@@ -36,6 +40,7 @@ export default {
     const data = reactive({
       title: "Axios",
       message: "This is axios sample.",
+      id: 0,
       json_data: null,
     });
 
@@ -46,10 +51,15 @@ export default {
         data.json_data = result.data;
       });
     };
-    onMounted(() => {
-      getData();
-    });
-    return { data, getData };
+    const doClick = () => {
+      axios.get(url + data.id).then((result) => {
+        data.json_data = result.data;
+      });
+    };
+    // onMounted(() => {
+    //   getData();
+    // });
+    return { data, getData, doClick };
   },
 };
 </script>
