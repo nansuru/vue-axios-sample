@@ -52,9 +52,15 @@ export default {
       });
     };
     const doClick = () => {
-      axios.get(url + data.id).then((result) => {
-        data.json_data = result.data;
-      });
+      axios
+        .get(url + data.id)
+        .then((result) => {
+          data.json_data = result.data;
+        })
+        .catch((error) => {
+          data.message = "ERROR!";
+          data.json_data = null;
+        });
     };
     // onMounted(() => {
     //   getData();
